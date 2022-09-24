@@ -6,7 +6,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,16 +19,16 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 body {
-  margin: 0;
+  margin: 0 5px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-wrap: wrap;
+  background-color: #f1eded;
 }
 
 h1 {
@@ -48,9 +47,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -61,10 +62,211 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  flex: 100%;
+  background: linear-gradient(90deg, #41b782, #86d169);
+}
+
+.header {
+  font-weight: bold;
+  font-size: 35px;
+  padding: 15px;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
+}
+
+.content {
+  /* border: 2px solid grey; */
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.left {
+  width: 35%;
+}
+
+.left .img-border {
+  padding: 50px;
+  place-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 10%;
+  /* border: 1px solid black; */
+  /* border-radius: 20px; */
+}
+
+.left .img-border:hover {
+  animation: test linear infinite;
+  -webkit-animation: test linear infinite;
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+@-webkit-keyframes rotating
+
+/* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.rotating {
+}
+
+.right {
+  margin-left: 1px;
+  width: 65%;
+  color: black;
+}
+
+.row {
+  display: block;
+}
+
+.product {
+  text-align: left;
+  padding: 20px;
+}
+
+.product-header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.product-header .product-name {
+  text-align: left;
+  width: 85%;
+  padding: 20px 10px;
+}
+
+.product-header .btn-cart {
+  flex-direction: row-reverse;
+  padding: 20px 20px;
+}
+
+.product-info .add-to-cart {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.add-to-cart {
+  margin: 10px 0px;
+}
+
+.add-to-cart input {
+  padding: 5px 20px;
+}
+
+.add-to-cart button,
+.add-to-cart input {
+  display: block;
+  margin: 5px 0px;
+}
+
+.comment {
+  display: flex;
+  flex-flow: row wrap;
+  width: 30%;
+  text-align: left;
+}
+
+.comment-header {
+  display: block;
+  flex: 100%;
+  text-align: left;
+  padding: 20px 0;
+  width: 100%;
+  color: black;
+  font-weight: bold;
+}
+
+.comment-body {
+  flex: 100%;
+  background-color: rgb(232, 242, 237);
+  color: black;
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.comment-body input,
+textarea,
+select {
+  margin: 10px auto;
+  padding: 10px 10px;
+  background-color: rgba(244, 241, 235, 0.352);
+  color: black;
+  width: 95%;
+}
+
+.comment-body label {
+  padding: 15px;
+}
+
+.comment-body select {
+  width: 100%;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+  #app {
+    padding: 20px;
+    /* margin: 5px; */
+  }
+
+  .content {
+    flex-flow: row wrap;
+  }
+
+  .right,
+  .left,
+  .comment {
+    flex: 100%;
+    width: 100%;
+  }
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 @media (prefers-color-scheme: light) {
@@ -72,9 +274,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

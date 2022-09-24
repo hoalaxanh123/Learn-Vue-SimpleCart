@@ -1,64 +1,56 @@
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank" title="Vite">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank" title="Vue">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-
-    <a
-      href="https://vuejs.org/guide/typescript/overview.html"
-      target="_blank"
-      title="TypeScript"
-    >
-      <img src="./assets/TS.png" class="logo ts" alt="TypeScript logo" />
-    </a>
-
-    <a href="https://eslint.vuejs.org/" target="_blank" title="Eslint">
-      <img src="./assets/Eslint.png" class="logo eslint" alt="Eslint logo" />
-    </a>
-
-    <a
-      href="https://www.npmjs.com/package/eslint-plugin-prettier-vue"
-      target="_blank"
-      title="Prettier"
-    >
-      <img
-        src="./assets/Prettier.png"
-        class="logo prettier"
-        alt="Prettier logo"
-      />
-    </a>
+    <div class="header">V Shop</div>
+    <product-page
+      :product="product"
+      :cart-counter="cartCounter"
+      @handle-buy="handleBuy"
+    />
+    <comment-page />
   </div>
-  <HelloWorld msg="Vite + Vue + TS + Eslint + Prettier" />
 </template>
 
-<script setup lang="ts">
-  // This starter template is using Vue 3 <script setup> SFCs
-  // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-  import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import CommentPage from './components/CommentPage.vue'
+import ProductPage from './components/ProductPage.vue'
+import { reactive, ref, Ref } from 'vue'
+import { ProductType, Product } from './classes/product'
+
+export default {
+  components: { CommentPage, ProductPage },
+  setup() {
+    const productInfo = new Product(
+      'Vue Mastery Shock',
+      5,
+      0,
+      ['80% natural cotton.', '20% polyester', 'Gender-neutral'],
+      [
+        new ProductType('Green', 'green', 'Eslint.png'),
+        new ProductType('Black', 'black', 'ts.png'),
+      ]
+    )
+
+    const product = reactive(productInfo)
+    const cartCounter = ref(0)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleBuy = (args: Array<any>) => {
+      const quantity: number = args[0]
+      const item: string = args[1]
+      const type: ProductType = args[2]
+      if (cartCounter.value + quantity > 20) {
+        alert('Maximum items is 20!')
+      } else {
+        cartCounter.value = cartCounter.value + quantity
+        product.stock = product.stock - quantity
+        alert(
+          `Added ${quantity} item named ${item} (${type.label}) into your cart!`
+        )
+      }
+    }
+    return { product, cartCounter, handleBuy }
+  },
+}
 </script>
 
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-  }
-  .logo.ts:hover {
-    filter: drop-shadow(0 0 2em #0482d6aa);
-  }
-  .logo.eslint:hover {
-    filter: drop-shadow(0 0 2em #034875aa);
-  }
-  .logo.prettier:hover {
-    filter: drop-shadow(0 0 2em #d14ee2d8);
-  }
-</style>
+<style scoped></style>
